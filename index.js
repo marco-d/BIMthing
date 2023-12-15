@@ -7,7 +7,9 @@ import {
     WebGLRenderer
 } from 'three';
 
-const scene = new Scene();
+//the scene!
+const scene = new Scene() ;
+
 const geometry = new BoxGeometry(0.5, 0.5,0.5);
 const material = new MeshBasicMaterial({color: 'orange'});
 const cubeMesh = new Mesh(geometry, material);
@@ -16,7 +18,8 @@ scene.add(cubeMesh);
 const sizes = {
     width: 800,
     height: 600,
-}
+};
+
 const camera = new PerspectiveCamera(75, sizes.width/sizes.height);
 scene.add(camera);
 
