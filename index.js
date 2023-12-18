@@ -16,7 +16,13 @@ import {
     Sphere,
     Raycaster,
     MathUtils,
-    Clock
+    Clock,
+    MeshPhongMaterial,
+    DirectionalLight,
+    TextureLoader,
+    AmbientLight,
+    HemisphereLight,
+    AxesHelper
 } from 'three';
 
 import CameraControls from 'camera-controls';
@@ -47,24 +53,61 @@ import {
 //the scene!
 const scene = new Scene() ;
 
+// Axes
+const axesHelper = new AxesHelper();
+axesHelper.position.x = -1.3;
+axesHelper.scale.set(0.1,0.1,0.1);
+scene.add(axesHelper);
+
+// Lights
+const ambLightSkyColor = 0xb1e1ff ;
+const ambLightGroundColor = 0xb97a20;
+const ambLightInt = 1;
+const hemiLight = new HemisphereLight(ambLightSkyColor, ambLightGroundColor, ambLightInt);
+scene.add(hemiLight);
+
+var light01 = new DirectionalLight( 'white' );
+light01.position.set( 0, 2, 1);
+scene.add(light01);
+
+// A cube geometry, to be used several times
 const geometry = new BoxGeometry(0.5, 0.5,0.5);
-const orangeMaterial = new MeshBasicMaterial({color: 'orange'});
-const blueMaterial = new MeshBasicMaterial({color: 'blue'});
-const greenMaterial = new MeshBasicMaterial({color: 'green'});
+
+// A texture loader
+const loader = new TextureLoader();
+
+const orangeMaterial = new MeshPhongMaterial({
+    color: 'orange',
+    specular: 'white',
+    shininess: 15,
+    flatShading: true,
+    map: loader.load("img/EDV CAD512px.png"),
+});
+const blueMaterial = new MeshPhongMaterial({
+    color: 'blue',
+    specular: 'white',
+    shininess: 15,
+    flatShading: true,
+    map: loader.load("img/Vertrag512px.png"),
+});
+const greenMaterial = new MeshPhongMaterial({
+    color: 'green',
+    specular: 'white',
+    shininess: 15,
+    flatShading: true,
+    map: loader.load("img/Handschühe512px.png"),
+});
 
 const orangeCube = new Mesh(geometry, orangeMaterial);
 const blueCube = new Mesh(geometry, blueMaterial);
 const greenCube = new Mesh(geometry, greenMaterial);
 
-greenCube.position.x += 1;
-blueCube.position.x -= 1;
+greenCube.position.x += .8;
+blueCube.position.x -= .8;
 
 scene.add(orangeCube);
 scene.add(blueCube);
 scene.add(greenCube);
-
-
-
 
 const canvas = document.getElementById('three-canvas');
 
