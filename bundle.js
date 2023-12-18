@@ -33418,10 +33418,6 @@ function letsFloat (floatingObject) {
     floatingObject.rotation.z -= 0.01;
 }
 
-
-
-
-
 function animate() {
     const delta = clock.getDelta();
     camctrl.update(delta);
